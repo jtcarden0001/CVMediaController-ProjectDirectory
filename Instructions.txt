@@ -1,0 +1,2 @@
+1. Install "open-cv python" and "matplotlib" on your pycharm project
+2. Copy paste the classifiers to your project folder
