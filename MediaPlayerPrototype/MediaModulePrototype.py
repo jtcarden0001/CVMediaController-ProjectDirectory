@@ -6,8 +6,9 @@
 # NOTE: for some reason the program will not accept an input URL when run in PyCharm but
 # it works when run from powershell/command line
 #
-# Currently Functional: play, pause, volume up, volume down
-# Functionality To Do: jump forward, jump backward
+# Functions while the media player is playing
+# Currently Functional: play: press 0, pause: press 1, volume down: press 2, volume up: press 3
+#                       jump backward: press 4, jump backward: press 5
 #
 ########################################################################################
 import vlc
@@ -33,44 +34,62 @@ def setup_player(url):
     vlc.libvlc_audio_set_volume(player, volume)
 
     while True:
+        # quit application
         if keyboard.is_pressed('q'):
+            print("quit")
             break
+
+        # play
         if keyboard.is_pressed('0'):
             status = 0
-            print(status)
-            list_player.play()
+            print("play")
+            player.play()
+
+        # pause
         if keyboard.is_pressed('1'):
             status = 1
-            print(status)
+            print("pause")
             if list_player.is_playing():
-                list_player.pause()
+                player.pause()
+
+        # volume down
         if keyboard.is_pressed('2'):
             status = 2
-            print(status)
             if volume > 0:
                 volume = volume - 2
-            vlc.libvlc_audio_set_volume(player, volume)
-            print("volume: %d\n", volume)
+            player.audio_set_volume(volume)
+            print("volume down: ", volume)
+
+        # volume up
         if keyboard.is_pressed('3'):
             status = 3
-            print(status)
             if volume < 100:
                 volume = volume + 2
-            vlc.libvlc_audio_set_volume(player, volume)
-            print("volume: %d\n", volume)
+            player.audio_set_volume(volume)
+            print("volume up: ", volume)
+
+        # jump backward
         if keyboard.is_pressed('4'):
             status = 4
-            print(status)
+            print("jump back")
+            jumpTo = player.get_time() - 10000
+            player.set_time(jumpTo)
+
+        # jump forward
         if keyboard.is_pressed('5'):
             status = 5
-            print(status)
+            print("jump forward")
+            jumpTo = player.get_time() + 10000
+            player.set_time(jumpTo)
+
         time.sleep(.1)
         pass
 
 
+# Driver Code for functionality in setup_player()
 root = tk.Tk()
 root.withdraw()
-url = tk.simpledialog.askstring("Computer Vision Media Controller","Please Enter a valid YouTube URL")
+url = tk.simpledialog.askstring("Computer Vision Media Controller", "Please Enter a valid YouTube URL")
 setup_player(url)
 
 
