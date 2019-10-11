@@ -10,7 +10,8 @@
 # Currently Functional: play: press 0, pause: press 1, volume down: press 2, volume up: press 3
 #                       jump backward: press 4, jump backward: press 5
 #
-########################################################################################
+#
+##############################################################################################
 import vlc
 import keyboard
 import tkinter as tk
