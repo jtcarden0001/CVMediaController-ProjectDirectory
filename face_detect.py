@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt     # importing matplotlib
 
 face_cascade=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')   #loading trained classifier for face detection
 eye_cascade=cv2.CascadeClassifier('haarcascade_eye.xml')                    #loading trained classifier for eye
-play_cascade=cv2.CascadeClassifier('fist_trial.xml')                      #loading trained classifier for closed fist
+play_cascade=cv2.CascadeClassifier('v2_play.xml')                      #loading trained classifier for closed fist
 pause_cascade=cv2.CascadeClassifier('cascade_pause.xml')                    #loading trained classifier for open palm
 vol_up_cascade=cv2.CascadeClassifier('thumbs_up_stage5_greyscalevideo.xml')
-#vol_down_cascade=cv2.CascadeClassifier('v4.xml')
-#index_up_cascade=cv2.CascadeClassifier('index_up_dasaar_Ateam_v3.xml')
+vol_down_cascade=cv2.CascadeClassifier('v9_thumbsdown.xml')
+index_up_cascade=cv2.CascadeClassifier('v2_index.xml')
 
 #reads from the web cam
 #creating variable name "cap"
@@ -39,9 +39,9 @@ while True:                  #While loop to capture the frame continuosly
     play=play_cascade.detectMultiScale(gray,1.1,5)      #detecting closed fist and saving into varaible 'play'
     pause=pause_cascade.detectMultiScale(gray,1.1,4)    #detecting open palm and saving into variable 'pause'
     vol_up=vol_up_cascade.detectMultiScale(gray,1.3,5)
-    #vol_down=vol_down_cascade.detectMultiScale(gray,1.1,5)
+    vol_down=vol_down_cascade.detectMultiScale(gray,1.1,1)
     #unknown=unknown_cascade.detectMultiScale(gray,1.3,5)
-   # backward=index_up_cascade.detectMultiScale(gray,1.2,4)
+    forward=index_up_cascade.detectMultiScale(gray,1.2,4)
 
     for(x, y, w, h) in faces:                        #iterate over faces object. Parameters:x,y,width and height of the rectangle
 
@@ -57,7 +57,7 @@ while True:                  #While loop to capture the frame continuosly
             font = cv2.FONT_HERSHEY_TRIPLEX #setting the font
 
         # cv2.putText(image where text will be,text,cordinates of text, font, fontScale, color, thickness, line type )
-            text=cv2.putText(frame, 'face', (10, 100), font, 1.5, (0, 0, 255), 2, cv2.LINE_AA)
+            text=cv2.putText(frame, 'face', (1135, 100), font, 1.5, (0, 0, 255), 2, cv2.LINE_AA)
             plt.imshow(text)
 
             cv2.rectangle(roi_color,(ex,ey), (ex+ew, ey+eh), (0,255,0),2) #drawing rectangle around the eyes
@@ -65,38 +65,38 @@ while True:                  #While loop to capture the frame continuosly
 
     for ( px,py,pw,ph) in play:
 
-        cv2.rectangle(frame,(px,py),(px+pw, py+ph),(18,255,255),2)
+        cv2.rectangle(frame,(px,py),(px+pw, py+ph),(0,255,0),2)
         font = cv2.FONT_HERSHEY_TRIPLEX
-        text = cv2.putText(frame, '    PLAY    ', (5, 150), font, 1.5, (18, 255, 255), 2, cv2.LINE_4)
+        text = cv2.putText(frame, '    PLAY    ', (-80, 150), font, 1.5, (0,255,0), 2, cv2.LINE_4)
         plt.imshow(text)
 
     for ( psx, psy,psw,psh) in pause:
-        cv2.rectangle(frame, (psx,psy), (psx+psw, psy+psh),(18,255,255),2)
+        cv2.rectangle(frame, (psx,psy), (psx+psw, psy+psh),(18, 255, 255),2)
         font = cv2.FONT_HERSHEY_TRIPLEX
-        text = cv2.putText(frame, '     PAUSE    ', (5, 150), font, 1.5, (18, 255, 255), 2, cv2.LINE_4)
+        text = cv2.putText(frame, '     PAUSE    ', (-110, 250), font, 1.5, (18, 255, 255), 2, cv2.LINE_4)
         plt.imshow(text)
 
     for (vux,vuy,vuw,vuh) in vol_up:
         cv2.rectangle(frame, (vux, vuy), (vux + vuw, vuy + vuh), (18, 255, 255), 2)
         font = cv2.FONT_HERSHEY_TRIPLEX
-        text = cv2.putText(frame, '     Volume up   ', (5, 150), font, 1.5, (18, 255, 255), 2, cv2.LINE_4)
+        text = cv2.putText(frame, '     Volume up   ', (-110, 150), font, 1.5, (18, 255, 255), 2, cv2.LINE_4)
         plt.imshow(text)
 
 
-    """for (vdx,vdy,vdw,vdh) in vol_down:
-        cv2.rectangle(frame, (vdx, vdy), (vdx + vdw, vdy + vdh), (18, 255, 255), 2)
+    for (vdx,vdy,vdw,vdh) in vol_down:
+        cv2.rectangle(frame, (vdx, vdy), (vdx + vdw, vdy + vdh), (255, 255, 255), 2)
         font = cv2.FONT_HERSHEY_TRIPLEX
-        text = cv2.putText(frame, '     Volume down   ', (5, 150), font, 1.5, (18, 255, 255), 2, cv2.LINE_4)
-        plt.imshow(text)"""
+        text = cv2.putText(frame, '     Volume down   ', (-110, 300), font, 1.5, (255, 255, 255), 2, cv2.LINE_4)
+        plt.imshow(text)
 
 
 
 
-    """for (bx,by,bw,bh) in backward:
-        cv2.rectangle(frame, (bx, by), (bx + bw, by + bh), (18, 255, 255), 2)
+    for (bx,by,bw,bh) in forward:
+        cv2.rectangle(frame, (bx, by), (bx + bw, by + bh), (255, 153, 255), 2)
         font = cv2.FONT_HERSHEY_TRIPLEX
-        text = cv2.putText(frame, '     backward   ', (5, 150), font, 1.5, (18, 255, 255), 2, cv2.LINE_4)
-        plt.imshow(text)"""
+        text = cv2.putText(frame, '     forward  ', (-120, 200), font, 1.5, (255, 153, 255), 2, cv2.LINE_4)
+        plt.imshow(text)
 
     cv2.imshow('video',frame)           # to show the frame captured by the camera.
                                         #imshow(any name for output window, variable 'frame')
