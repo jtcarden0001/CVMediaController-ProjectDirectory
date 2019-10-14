@@ -26,6 +26,8 @@ Label(mainframe, text="Choose a mode",font="Times, 25",relief= 'solid').grid(row
 popupMenu.grid(row = 2, column =1)
 
 
+
+
 # on change dropdown value
 def change_dropdown(*args):
     print( tkvar.get() )
@@ -40,12 +42,17 @@ def change_dropdown(*args):
     print(inputUrl)
 
 
+
 textBox=Text(root, height=2, width=100)
 textBox.pack()
 # link function to change dropdown
 tkvar.trace('w', change_dropdown)
 w = tk.Label(root, text="enter URL")
 w.pack()
+
+
+button=Button(root, text="LAUNCH")
+button.pack()
 
 #Creates a Tkinter-compatible photo image, which can be used everywhere Tkinter expects an image object.
 img = ImageTk.PhotoImage(Image.open("team_logo.png"))
