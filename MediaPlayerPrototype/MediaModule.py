@@ -1,32 +1,67 @@
-class MediaModule:
+import vlc
+
+
+class MediaPlayer:
 
     def __init__(self):
         self.state = 0  # may change these states into an enum
+        self.volume = 50
+        self.vlc_instance = vlc.Instance('--fullscreen')
+        self.player = self.vlc_instance.media_player_new()
         self.placeholder = 0
+        self.url = ""
 
-    def ValidateURL(self):
-        self.placeholder = 0
+    def _validate_url(self, url):
+        # TODO implement a function that validates a Youtube URL
+        return True
 
-    def Initialize(self):
-        self.placeholder = 0
+    def initialize(self, url):
+        if not self._validate_url(url):
+            return False
+        media = self.vlc_instance.media_new(url)
+        media_list = self.vlc_instance.media_list_new([url])
+        self.url = url
+        self.player.set_media(media)
+        list_player = self.vlc_instance.media_list_player_new()
+        list_player.set_media_player(self.player)
+        list_player.set_media_list(media_list)
+        list_player.play()
+        vlc.libvlc_audio_set_volume(self.player, self.volume)
+        print("player initialized")
+        return True
 
-    def Play(self):
+    def play(self):
         self.state = 0
+        print("play")
+        self.player.play()
 
-    def Pause(self):
+    def pause(self):
         self.state = 1
+        print("pause")
+        if self.player.is_playing():
+            self.player.pause()
 
-    def IncreaseVolume(self):
-        self.placeholder = 0
+    def increase_volume(self):
+        if self.volume < 100:
+            self.volume = self.volume + 2
+        self.player.audio_set_volume(self.volume)
+        print("volume up: ", self.volume)
 
-    def DecreaseVolume(self):
-        self.placeholder = 0
+    def decrease_volume(self):
+        if self.volume > 0:
+            self.volume = self.volume - 2
+        self.player.audio_set_volume(self.volume)
+        print("volume down: ", self.volume)
 
-    def JumpForward(self):
-        self.placeholder = 0
+    def jump_forward(self):
+        print("jump forward")
+        jump_to = self.player.get_time() + 10000
+        self.player.set_time(jump_to)
 
-    def JumpBack(self):
-        self.placeholder = 0
+    def jump_back(self):
+        print("jump back")
+        jump_to = self.player.get_time() - 10000
+        self.player.set_time(jump_to)
 
-    def GetState(self):
-        self.placeholder = 0
+    def get_state(self):
+        return self.state
