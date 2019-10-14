@@ -33,26 +33,42 @@ def change_dropdown(*args):
     print( tkvar.get() )
     if tkvar.get() =="Face":
         print('welcome to Face Mode')
+        print(" ")
 
 
     else:
         print('welcome to Gesture mode')
-
-    inputUrl = textBox.get("1.0", "end-1c")
+        print(" ")
     print(inputUrl)
+
 
 
 
 textBox=Text(root, height=2, width=100)
 textBox.pack()
+
+inputUrl = textBox.get("1.0", "end-1c")
+
+
 # link function to change dropdown
 tkvar.trace('w', change_dropdown)
 w = tk.Label(root, text="enter URL")
 w.pack()
 
 
-button=Button(root, text="LAUNCH")
-button.pack()
+
+
+def callback():
+    url=textBox.get("1.0", "end-1c")
+    print("You entered:"+ url)
+
+b = Button(text="LAUNCH", command=callback)
+b.pack()
+
+
+
+
+
 
 #Creates a Tkinter-compatible photo image, which can be used everywhere Tkinter expects an image object.
 img = ImageTk.PhotoImage(Image.open("team_logo.png"))
@@ -66,6 +82,6 @@ panel.pack(side = "bottom", fill = "both", expand = "yes")
 
 
 
-root.mainloop()
+root.mainloop()         #window will stay as long as you don't click close
 
 
