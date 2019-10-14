@@ -12,10 +12,12 @@ class MediaPlayer:
         self.url = ""
 
     def _validate_url(self, url):
-        # TODO implement a function that validates a Youtube URL
+        # TODO: implement a function that validates a Youtube URL
         return True
 
     def initialize(self, url):
+        # TODO: modify the title in the media player title bar to
+        #  "Computer Vision Media Controller"
         if not self._validate_url(url):
             return False
         media = self.vlc_instance.media_new(url)

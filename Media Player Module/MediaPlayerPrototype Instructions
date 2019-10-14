@@ -1,0 +1,18 @@
+Download vlc from "https://www.videolan.org/vlc/"
+
+To set up the dependencies in PyCharm
+- go to File -> Settings -> Project Interpreter
+- search for "python-vlc" via the install button (top right) and install the dependency
+- search for "keyboard" and install in the same manner as python-vlc
+
+To allow MediaModule as dependency source for MediaModuleDriver
+- right click MediaPlayerPrototype directory in pycharm
+- mark directory as -> mark as source root
+
+To run MediaModuleDriver from cmd (required for proper functionality due to pycharm issue)
+- navigate to the MediaPlayerPrototype directory
+- install dependencies from cmd (installing in pycharm will get rid of underlined errors in pycharm
+                                        but installing via cmd is required to run from cmd)
+      - run command "pip install python-vlc"
+      - run command "pip-install keyboard"
+- run command "MediaModuleDriver.py"
