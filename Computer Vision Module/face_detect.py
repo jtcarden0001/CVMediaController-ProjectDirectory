@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt     # importing matplotlib
 
 face_cascade=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')   #loading trained classifier for face detection
 eye_cascade=cv2.CascadeClassifier('haarcascade_eye.xml')                    #loading trained classifier for eye
-play_cascade=cv2.CascadeClassifier('v2_play.xml')                      #loading trained classifier for closed fist
+play_cascade=cv2.CascadeClassifier('fist_sandeep_github.xml')                      #loading trained classifier for closed fist
 pause_cascade=cv2.CascadeClassifier('cascade_pause.xml')                    #loading trained classifier for open palm
 vol_up_cascade=cv2.CascadeClassifier('v2_thumbs_up_Cascade_trainer.xml')
 vol_down_cascade=cv2.CascadeClassifier('v9_thumbsdown.xml')
