@@ -7,9 +7,9 @@ face_cascade=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')   #loa
 eye_cascade=cv2.CascadeClassifier('haarcascade_eye.xml')                    #loading trained classifier for eye
 play_cascade=cv2.CascadeClassifier('v2_play.xml')                      #loading trained classifier for closed fist
 pause_cascade=cv2.CascadeClassifier('cascade_pause.xml')                    #loading trained classifier for open palm
-vol_up_cascade=cv2.CascadeClassifier('thumbs_up_stage5_greyscalevideo.xml')
+vol_up_cascade=cv2.CascadeClassifier('v2_thumbs_up_Cascade_trainer.xml')
 vol_down_cascade=cv2.CascadeClassifier('v9_thumbsdown.xml')
-index_up_cascade=cv2.CascadeClassifier('v2_index.xml')
+right_sideways=cv2.CascadeClassifier('right sideways_sandeep_github.xml')
 
 #reads from the web cam
 #creating variable name "cap"
@@ -41,7 +41,8 @@ while True:                  #While loop to capture the frame continuosly
     vol_up=vol_up_cascade.detectMultiScale(gray,1.3,5)
     vol_down=vol_down_cascade.detectMultiScale(gray,1.1,1)
     #unknown=unknown_cascade.detectMultiScale(gray,1.3,5)
-    forward=index_up_cascade.detectMultiScale(gray,1.2,4)
+    forward=right_sideways.detectMultiScale(gray,1.1,4)
+
 
     for(x, y, w, h) in faces:                        #iterate over faces object. Parameters:x,y,width and height of the rectangle
 
@@ -95,7 +96,7 @@ while True:                  #While loop to capture the frame continuosly
     for (bx,by,bw,bh) in forward:
         cv2.rectangle(frame, (bx, by), (bx + bw, by + bh), (255, 153, 255), 2)
         font = cv2.FONT_HERSHEY_TRIPLEX
-        text = cv2.putText(frame, '     forward  ', (-120, 200), font, 1.5, (255, 153, 255), 2, cv2.LINE_4)
+        text = cv2.putText(frame, '     backward  ', (-120, 200), font, 1.5, (255, 153, 255), 2, cv2.LINE_4)
         plt.imshow(text)
 
     cv2.imshow('video',frame)           # to show the frame captured by the camera.
