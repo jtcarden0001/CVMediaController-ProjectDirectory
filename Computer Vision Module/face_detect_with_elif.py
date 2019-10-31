@@ -7,9 +7,10 @@ face_cascade=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')   #loa
 eye_cascade=cv2.CascadeClassifier('haarcascade_eye.xml')                    #loading trained classifier for eye
 play_cascade=cv2.CascadeClassifier('fist_sandeep_github.xml')               #loading trained classifier for closed fist
 pause_cascade=cv2.CascadeClassifier('cascade_pause.xml')                    #loading trained classifier for open palm
-vol_up_cascade=cv2.CascadeClassifier('v3_thumbs_up_Cascade_trainer.xml')
-vol_down_cascade=cv2.CascadeClassifier('v10_thumbsdown.xml')
+vol_up_cascade=cv2.CascadeClassifier('v5_thumbsup.xml')
+vol_down_cascade=cv2.CascadeClassifier('v11_thumbsdown.xml')
 right_sideways=cv2.CascadeClassifier('right sideways_sandeep_github.xml')
+left_sideways=cv2.CascadeClassifier('v6_backward.xml')
 
 #reads from the web cam
 #creating variable name "cap"
@@ -19,6 +20,7 @@ cap=cv2.VideoCapture(0)
 
 cap.set(3,1028)             # sets the output window resolution to 1028. code for the height is 3
 cap.set(4,720)              # sets the output window resolution to 720. code for the  width is 4
+
 
 
 while True:    #While loop to capture the frame continuosly
@@ -43,6 +45,7 @@ while True:    #While loop to capture the frame continuosly
     vol_up=vol_up_cascade.detectMultiScale(gray,1.3,5)
     vol_down=vol_down_cascade.detectMultiScale(gray,1.1,1)
     forward=right_sideways.detectMultiScale(gray,1.1,4)
+    backward = left_sideways.detectMultiScale(gray, 1.1, 4)
 
 
 
@@ -102,6 +105,13 @@ while True:    #While loop to capture the frame continuosly
     elif (np.sum(forward)> 0):
         print('forward detected')
         for (bx, by, bw, bh) in forward:
+            cv2.rectangle(frame, (bx, by), (bx + bw, by + bh), (255, 153, 255), 2)
+            font = cv2.FONT_HERSHEY_TRIPLEX
+            text = cv2.putText(frame, '     backward  ', (-120, 200), font, 1.5, (255, 153, 255), 2, cv2.LINE_4)
+            plt.imshow(text)
+    elif (np.sum(backward)>0):
+        print('backward detected')
+        for (bx, by, bw, bh) in backward:
             cv2.rectangle(frame, (bx, by), (bx + bw, by + bh), (255, 153, 255), 2)
             font = cv2.FONT_HERSHEY_TRIPLEX
             text = cv2.putText(frame, '     backward  ', (-120, 200), font, 1.5, (255, 153, 255), 2, cv2.LINE_4)
