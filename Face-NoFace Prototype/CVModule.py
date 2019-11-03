@@ -1,6 +1,6 @@
 from MediaModule import MediaPlayer
-import cv2                          # importing openCV module
-import numpy as np                  #importing numpy
+import cv2  # importing openCV module
+import numpy as np  # importing numpy
 import keyboard
 import time
 
