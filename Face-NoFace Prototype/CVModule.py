@@ -1,6 +1,11 @@
 from MediaModule import MediaPlayer
+<<<<<<< HEAD
 import cv2
 import numpy as np
+=======
+import cv2  # importing openCV module
+import numpy as np  # importing numpy
+>>>>>>> 5325185f2e73add8bbe2c941ac58afb66c28b924
 import keyboard
 import time
 

@@ -61,4 +61,3 @@ while True:
         player.jump_back()
 
     time.sleep(.1)
-    pass
