@@ -9,12 +9,13 @@ url = tk.simpledialog.askstring("Computer Vision Media Controller", "Please Ente
 player = MediaPlayer()
 player.initialize(url)
 face_detector = FaceDetector()
+# These states dictate the direction of the main loop.  State[0] indicates what mode the program should be operating in
+# (state[0] == True iff face mode, state[0] == False iff gesture mode) while state[1] indicates if the program shou=ld
+# continue to run or not (state[1] == True if we want to quit).
 state = [True, False]
 
-while True:
-    if state[0] and not state[1]:
+while not state[1]:
+    if state[0]:
         state = face_detector.detect(player)
-    if not state[0] and not state[1]:
+    else:
         print("gesture mode")
-    if state[1]:
-        break

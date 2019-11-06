@@ -21,16 +21,19 @@ import keyboard
 import tkinter as tk
 import tkinter.simpledialog
 import time
-from MediaModule import MediaPlayer
+from MediaModule import VideoFrame, MediaPlayer
 
 
 root = tk.Tk()
-root.withdraw()
-url = tk.simpledialog.askstring("Computer Vision Media Controller", "Please Enter a valid YouTube URL")
+root.title = "Computer Vision Media Controller"
+#  url = tk.simpledialog.askstring("Computer Vision Media Controller", "Please Enter a valid YouTube URL")
+url = "https://www.youtube.com/watch?v=LXb3EKWsInQ"
 player = MediaPlayer()
+frame = VideoFrame(root, player)
 player.initialize(url)
 
 while True:
+    root.update()
     # quit application
     if keyboard.is_pressed('q'):
         print("quit")
@@ -61,4 +64,3 @@ while True:
         player.jump_back()
 
     time.sleep(.1)
-    pass

@@ -16,3 +16,7 @@ To run MediaModuleDriver from cmd (required for proper functionality due to pych
       - run command "pip install python-vlc"
       - run command "pip-install keyboard"
 - run command "MediaModuleDriver.py"
+
+Troubleshooting:
+- If you get an error similar to ". . . main libvlc error: stale plugins cache: modified . . .",
+  simply find and run vlc-cache-gen.exe in the folder where you installed VLC to fix the cache.
