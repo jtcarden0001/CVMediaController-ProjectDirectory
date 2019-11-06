@@ -7,10 +7,10 @@ face_cascade=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')   #loa
 eye_cascade=cv2.CascadeClassifier('haarcascade_eye.xml')                    #loading trained classifier for eye
 play_cascade=cv2.CascadeClassifier('fist_sandeep_github.xml')               #loading trained classifier for closed fist
 pause_cascade=cv2.CascadeClassifier('cascade_pause.xml')                    #loading trained classifier for open palm
-vol_up_cascade=cv2.CascadeClassifier('v5_thumbsup.xml')
-vol_down_cascade=cv2.CascadeClassifier('v11_thumbsdown.xml')
+vol_up_cascade=cv2.CascadeClassifier('v6_thumbsup.xml')
+vol_down_cascade=cv2.CascadeClassifier('v12_thumbsdown.xml')
 right_sideways=cv2.CascadeClassifier('right sideways_sandeep_github.xml')
-left_sideways=cv2.CascadeClassifier('v6_backward.xml')
+left_sideways=cv2.CascadeClassifier('v9_backward.xml')
 
 #reads from the web cam
 #creating variable name "cap"
