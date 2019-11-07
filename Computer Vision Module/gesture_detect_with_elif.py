@@ -3,14 +3,13 @@ import matplotlib.pyplot as plt     # importing matplotlib
 import numpy as np                  #importing numpy
 
                                                                             #letting the program know how each object looks
-face_cascade=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')   #loading trained classifier for face detection
 eye_cascade=cv2.CascadeClassifier('haarcascade_eye.xml')                    #loading trained classifier for eye
 play_cascade=cv2.CascadeClassifier('fist_sandeep_github.xml')               #loading trained classifier for closed fist
 pause_cascade=cv2.CascadeClassifier('cascade_pause.xml')                    #loading trained classifier for open palm
-vol_up_cascade=cv2.CascadeClassifier('v6_thumbsup.xml')
+vol_up_cascade=cv2.CascadeClassifier('v7_thumbsup.xml')
 vol_down_cascade=cv2.CascadeClassifier('v12_thumbsdown.xml')
-right_sideways=cv2.CascadeClassifier('right sideways_sandeep_github.xml')
-left_sideways=cv2.CascadeClassifier('v9_backward.xml')
+right_sideways=cv2.CascadeClassifier('v2_forward.xml')
+left_sideways=cv2.CascadeClassifier('v9_backward_with_all_negatives.xml')
 
 #reads from the web cam
 #creating variable name "cap"
@@ -39,37 +38,15 @@ while True:    #While loop to capture the frame continuosly
     #minNeighbors= Parameters specifying how many neighbors each candidate rectangle should have to retain it
     #changing scaleFactor and minNeighbors to different values changes the sensitivity of the detection.
 
-    faces = face_cascade.detectMultiScale(gray, 1.3, 5) # detecting faces in each frame and saving into variable=faces
+    #faces = face_cascade.detectMultiScale(gray, 1.3, 5) # detecting faces in each frame and saving into variable=faces
     play = play_cascade.detectMultiScale(gray, 1.1, 5)  # detecting play in frame and  saving into variable=play
     pause=pause_cascade.detectMultiScale(gray,1.1,4)
-    vol_up=vol_up_cascade.detectMultiScale(gray,1.3,5)
+    vol_up=vol_up_cascade.detectMultiScale(gray,1.4,5)
     vol_down=vol_down_cascade.detectMultiScale(gray,1.1,1)
-    forward=right_sideways.detectMultiScale(gray,1.1,4)
+    forward=right_sideways.detectMultiScale(gray,1.4,5)
     backward = left_sideways.detectMultiScale(gray, 1.1, 4)
 
-
-
-
-    if (np.sum(faces)>0):                   #if x+y+w+h>0, draw a rectangle. np.sum() basically sums up the numpy array
-        print('face detected')
-        for (x, y, w, h) in faces:          # iterate over faces object. Parameters:x,y,width and height of the rectangle
-
-            # cv2.rectangle(image,starting point, ending point, color, thickness)
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255),2)  # draws rectangle around the face. starts from x and y to x+w and y+h
-            roi_gray = gray[y:y + h,x:x + w]  # setting a boundry around face.Starts from y to y+h...... Will be used for eye detection.
-            roi_color = frame[y:y + h, x:x + w]
-            eyes = eye_cascade.detectMultiScale(roi_gray)  # detecting eye inside the facial region
-
-            for (ex, ey, ew, eh) in eyes:  # for loop inside faces to make sure eyes are never detected outside of the face
-                font = cv2.FONT_HERSHEY_TRIPLEX  # setting the font
-
-                # cv2.putText(image where text will be,text,cordinates of text, font, fontScale, color, thickness, line type )
-                text = cv2.putText(frame, 'face', (1135, 100), font, 1.5, (0, 0, 255), 2, cv2.LINE_AA)
-                plt.imshow(text)
-
-                cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0),2)  # drawing rectangle around the eyes
-
-    elif (np.sum(play)> 0):
+    if (np.sum(play)> 0):
         print('play detected')
         for (px, py, pw, ph) in play:
 
