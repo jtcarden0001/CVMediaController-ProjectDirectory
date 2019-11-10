@@ -64,12 +64,12 @@ class GestureDetector:
     # sets the output window resolution to 1028. code for the height is 3
     # sets the output window resolution to 720. code for the  width is 4
     def __init__(self):
-        self.play_cascade = cv2.CascadeClassifier('CV models/fist_sandeep_github.xml')  # loading trained classifier for closed fist
+        self.play_cascade = cv2.CascadeClassifier('CV models/cascade_play_sandeep_github.xml')  # loading trained classifier for closed fist
         self.pause_cascade = cv2.CascadeClassifier('CV models/cascade_pause.xml')  # loading trained classifier for open palm
-        self.vol_up_cascade = cv2.CascadeClassifier('CV models/v5_thumbsup.xml')
-        self.vol_down_cascade = cv2.CascadeClassifier('CV models/v11_thumbsdown.xml')
-        self.right_sideways = cv2.CascadeClassifier('CV models/right sideways_sandeep_github.xml')
-        self.left_sideways = cv2.CascadeClassifier('CV models/v6_backward.xml')
+        self.vol_up_cascade = cv2.CascadeClassifier('CV models/v7_thumbsup.xml')
+        self.vol_down_cascade = cv2.CascadeClassifier('CV models/v13_thumbsdown.xml')
+        self.right_sideways = cv2.CascadeClassifier('CV models/v2_forward.xml')
+        self.left_sideways = cv2.CascadeClassifier('CV models/v10_backward.xml')
         self.cap = cv2.VideoCapture(0)
         self.cap.set(3, 1028)
         self.cap.set(4, 720)
@@ -83,12 +83,12 @@ class GestureDetector:
             root.update()
             ret, frame = self.cap.read()
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            play = self.play_cascade.detectMultiScale(gray, 1.1, 5)  # detecting play in frame and  saving into variable=play
-            pause = self.pause_cascade.detectMultiScale(gray, 1.1, 4)
-            vol_up = self.vol_up_cascade.detectMultiScale(gray, 1.3, 5)
-            vol_down = self.vol_down_cascade.detectMultiScale(gray, 1.1, 1)
-            forward = self.right_sideways.detectMultiScale(gray, 1.1, 4)
-            backward = self.left_sideways.detectMultiScale(gray, 1.1, 4)
+            play = self.play_cascade.detectMultiScale(gray, 1.4, 5)  # detecting play in frame and  saving into variable=play
+            pause = self.pause_cascade.detectMultiScale(gray, 1.3, 4)
+            vol_up = self.vol_up_cascade.detectMultiScale(gray, 1.4, 5)
+            vol_down = self.vol_down_cascade.detectMultiScale(gray, 1.3, 5)
+            forward = self.right_sideways.detectMultiScale(gray, 1.4, 5)
+            backward = self.left_sideways.detectMultiScale(gray, 1.4, 5)
 
             # TODO: this tolerance method of control may need rework
             if np.sum(play) > 0:

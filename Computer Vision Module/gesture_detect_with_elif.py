@@ -3,13 +3,12 @@ import matplotlib.pyplot as plt     # importing matplotlib
 import numpy as np                  #importing numpy
 
                                                                             #letting the program know how each object looks
-eye_cascade=cv2.CascadeClassifier('haarcascade_eye.xml')                    #loading trained classifier for eye
-play_cascade=cv2.CascadeClassifier('fist_sandeep_github.xml')               #loading trained classifier for closed fist
+play_cascade=cv2.CascadeClassifier('cascade_play_sandeep_github.xml')               #loading trained classifier for closed fist
 pause_cascade=cv2.CascadeClassifier('cascade_pause.xml')                    #loading trained classifier for open palm
 vol_up_cascade=cv2.CascadeClassifier('v7_thumbsup.xml')
-vol_down_cascade=cv2.CascadeClassifier('v12_thumbsdown.xml')
-right_sideways=cv2.CascadeClassifier('v2_forward.xml')
-left_sideways=cv2.CascadeClassifier('v9_backward_with_all_negatives.xml')
+vol_down_cascade=cv2.CascadeClassifier('v13_thumbsdown.xml')
+forward_cascade=cv2.CascadeClassifier('v2_forward.xml')
+backward_cascade=cv2.CascadeClassifier('v10_backward.xml')
 
 #reads from the web cam
 #creating variable name "cap"
@@ -39,12 +38,12 @@ while True:    #While loop to capture the frame continuosly
     #changing scaleFactor and minNeighbors to different values changes the sensitivity of the detection.
 
     #faces = face_cascade.detectMultiScale(gray, 1.3, 5) # detecting faces in each frame and saving into variable=faces
-    play = play_cascade.detectMultiScale(gray, 1.1, 5)  # detecting play in frame and  saving into variable=play
-    pause=pause_cascade.detectMultiScale(gray,1.1,4)
+    play = play_cascade.detectMultiScale(gray, 1.4, 5)  # detecting play in frame and  saving into variable=play
+    pause=pause_cascade.detectMultiScale(gray,1.3,4)
     vol_up=vol_up_cascade.detectMultiScale(gray,1.4,5)
-    vol_down=vol_down_cascade.detectMultiScale(gray,1.1,1)
-    forward=right_sideways.detectMultiScale(gray,1.4,5)
-    backward = left_sideways.detectMultiScale(gray, 1.1, 4)
+    vol_down=vol_down_cascade.detectMultiScale(gray,1.3,4)
+    forward=forward_cascade.detectMultiScale(gray,1.4,5)
+    backward = backward_cascade.detectMultiScale(gray, 1.4, 5)
 
     if (np.sum(play)> 0):
         print('play detected')
