@@ -83,7 +83,7 @@ while True:    #While loop to capture the frame continuosly
         for (bx, by, bw, bh) in forward:
             cv2.rectangle(frame, (bx, by), (bx + bw, by + bh), (255, 153, 255), 2)
             font = cv2.FONT_HERSHEY_TRIPLEX
-            text = cv2.putText(frame, '     backward  ', (-120, 200), font, 1.5, (255, 153, 255), 2, cv2.LINE_4)
+            text = cv2.putText(frame, '     forward  ', (-120, 200), font, 1.5, (255, 153, 255), 2, cv2.LINE_4)
             plt.imshow(text)
     elif (np.sum(backward)>0):
         print('backward detected')
