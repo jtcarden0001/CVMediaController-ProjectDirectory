@@ -18,6 +18,25 @@ class FaceDetector:
         self.state_detection_streak = 0  # number of times the same state has been detected in a row
         self.repeated_detections_required = 2  # number of repeated detections needed to trigger a media control
 
+    def process_detected_state(self, video_frame, current_state):
+        #  if the current face/no face state doesn't match the previous state, reset the streak and the set the
+        #  state to the current face/no face state
+        if self.state != current_state:
+            self.state = current_state
+            self.state_detection_streak = 0
+
+        #  increment the streak
+        self.state_detection_streak += 1
+
+        #  if the streak exceeds the given tolerance, execute the appropriate media control
+        if self.state_detection_streak >= self.repeated_detections_required:
+            if self.state == 0:
+                video_frame.update_status("Face Mode: play")
+                video_frame.player.play()
+            elif self.state == 1:
+                video_frame.update_status("Face Mode: pause")
+                video_frame.player.pause()
+
     def detect(self, video_frame, root):
         # TODO: break this while loop into smaller testable functions
         while video_frame.current_mode() == 1:
@@ -25,33 +44,10 @@ class FaceDetector:
             ret, frame = self.cap.read()
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-            #  face detected
-            if np.sum(self.face_cascade.detectMultiScale(gray, 1.3, 5)) > 0:
-                #  if the previously detected state was 'face', increment the state detection counter.
-                if self.state == 0:
-                    self.state_detection_streak += 1
-                    #  if that counter exceeds the given tolerance, execute a media control
-                    if self.state_detection_streak >= self.repeated_detections_required:
-                        video_frame.update_status("Face Mode: play")
-                        video_frame.player.play()
-                #  if the previous state was not 'face', set the state to 'face' and the detection streak to 1
-                else:
-                    self.state = 0
-                    self.state_detection_streak = 1
-
-            #  no face detected
-            else:
-                #  if the previously detected state was 'no face', increment the state detection counter.
-                if self.state == 1:
-                    self.state_detection_streak += 1
-                    #  if that counter exceeds the given tolerance, execute a media control
-                    if self.state_detection_streak >= self.repeated_detections_required:
-                        video_frame.update_status("Face Mode: pause")
-                        video_frame.player.pause()
-                #  if the previous state was not 'no face', set the state to 'no face' and the detection streak to 1
-                else:
-                    self.state = 1
-                    self.state_detection_streak = 1
+            if np.sum(self.face_cascade.detectMultiScale(gray, 1.3, 5)) > 0:  # face detected
+                self.process_detected_state(video_frame, 0)
+            else:  # no face detected
+                self.process_detected_state(video_frame, 1)
 
             time.sleep(.3)
 
@@ -77,34 +73,35 @@ class GestureDetector:
         self.repeated_detections_required = 2  # number of repeated detections needed to trigger a media control
 
     def process_detected_gesture(self, video_frame, current_gesture):
-        #  if the previously detected gesture matches the current gesture, increment the gesture detection counter.
-        if self.state == current_gesture:
-            self.gesture_detection_streak += 1
-            #  if that counter exceeds the given tolerance, execute the appropriate media control
-            if self.gesture_detection_streak >= self.repeated_detections_required:
-                if self.state == 0:
-                    video_frame.player.play()
-                    video_frame.update_status("Gesture: play")
-                elif self.state == 1:
-                    video_frame.player.pause()
-                    video_frame.update_status("Gesture: pause")
-                elif self.state == 2:
-                    video_frame.player.increase_volume()
-                    video_frame.update_status("Gesture: volume up")
-                elif self.state == 3:
-                    video_frame.player.decrease_volume()
-                    video_frame.update_status("Gesture: volume down")
-                elif self.state == 4:
-                    video_frame.player.jump_forward()
-                    video_frame.update_status("Gesture: forward")
-                elif self.state == 5:
-                    video_frame.player.jump_back()
-                    video_frame.update_status("Gesture: backward")
-        #  if the previous gesture does not match the current gesture, set the state to the current gesture and the
-        #  detection streak to 1
-        else:
+        #  if the current gesture doesn't match the previous gesture, reset the streak and the set the state to
+        #  the current gesture
+        if self.state != current_gesture:
             self.state = current_gesture
-            self.gesture_detection_streak = 1
+            self.gesture_detection_streak = 0
+
+        #  increment the streak
+        self.gesture_detection_streak += 1
+
+        #  if the streak exceeds the given tolerance, execute the appropriate media control
+        if self.gesture_detection_streak >= self.repeated_detections_required:
+            if self.state == 0:
+                video_frame.player.play()
+                video_frame.update_status("Gesture: play")
+            elif self.state == 1:
+                video_frame.player.pause()
+                video_frame.update_status("Gesture: pause")
+            elif self.state == 2:
+                video_frame.player.increase_volume()
+                video_frame.update_status("Gesture: volume up")
+            elif self.state == 3:
+                video_frame.player.decrease_volume()
+                video_frame.update_status("Gesture: volume down")
+            elif self.state == 4:
+                video_frame.player.jump_forward()
+                video_frame.update_status("Gesture: forward")
+            elif self.state == 5:
+                video_frame.player.jump_back()
+                video_frame.update_status("Gesture: backward")
 
     def detect(self, video_frame, root):
         # TODO: break this while loop into smaller testable functions
