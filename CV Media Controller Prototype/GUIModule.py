@@ -8,6 +8,10 @@ class VideoFrame(tk.Frame):
         super(VideoFrame, self).__init__(root)
         self.grid()
         self.root = root
+        self.root.title("CV Media Controller")
+        self.root.tk.call('wm', 'iconphoto', root._w, tk.PhotoImage(file='icon.png'))
+        self.root.configure(bg='red')
+        self.root.resizable(False, False)
         self.mode = tk.IntVar()
         self.mode.set(1)
         self.status_message = tk.StringVar()

@@ -3,7 +3,6 @@ from GUIModule import VideoFrame
 import tkinter as tk
 
 root = tk.Tk()
-root.title("CV Media Controller")
 frame = VideoFrame(root)
 face_detector = FaceDetector()
 gesture_detector = GestureDetector()
