@@ -4,12 +4,13 @@ import tkinter as tk
 
 root = tk.Tk()
 frame = VideoFrame(root)
+state = 0
 face_detector = FaceDetector()
 gesture_detector = GestureDetector()
 
 while True:
     root.update()
     if frame.current_mode() == 1:
-        face_detector.detect(frame, root)
+        state = face_detector.detect(frame, root, state)
     else:
-        gesture_detector.detect(frame, root)
+        state = gesture_detector.detect(frame, root, state)
