@@ -1,4 +1,4 @@
-import validators
+# import validators
 import vlc
 
 
@@ -67,3 +67,9 @@ class MediaPlayer:
 
     def get_state(self):
         return self.state
+
+    def get_volume(self):
+        return self.volume
+
+    def get_time(self):
+        return self.player.get_time()
