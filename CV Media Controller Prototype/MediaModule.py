@@ -72,4 +72,4 @@ class MediaPlayer:
         return self.volume
 
     def get_time(self):
-        return self.player.get_time()
+        return [self.player.get_time(), self.player.get_length()]

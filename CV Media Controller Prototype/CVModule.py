@@ -65,7 +65,7 @@ class FaceDetector:
                 self.process_detected_state(video_frame, 0)
             else:  # no face detected
                 self.process_detected_state(video_frame, 1)
-            # cv2.imshow('video', frame)
+            cv2.imshow('video', frame)
             time.sleep(.3)
         return self.state
 
@@ -169,6 +169,6 @@ class GestureDetector:
             elif np.sum(self.vol_down_cascade.detectMultiScale(gray, 1.3, 5)) > 0:  # vol down gesture detected
                 self.process_detected_gesture(video_frame, 5)
 
-            # cv2.imshow('video', frame)
+            cv2.imshow('video', frame)
             time.sleep(.3)
         return self.state[0]
