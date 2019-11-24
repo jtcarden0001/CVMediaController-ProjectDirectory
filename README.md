@@ -1,5 +1,8 @@
 ﻿# Computer Vision Media Controller
 
+### Download
+An executable of the Computer Vision Media Controller is available [here](https://www.dropbox.com/s/4iuygu5w156nnc0/CV%20Media%20Controller.exe?dl=0).
+
 ### About
 The Computer Vision Media Controller is a program that can send media player controls to a YouTube video using either facial recognition or gesture recognition.
 
